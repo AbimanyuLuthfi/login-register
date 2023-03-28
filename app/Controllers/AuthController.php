@@ -32,9 +32,15 @@ class AuthController extends BaseController
         $password = $this->request->getVar('password');
         
         $rules = [
-            'email'         => ['rules' => 'required|max_length[100]|valid_email|is_unique[users.email]'],
-            'password'      => ['rules' => 'required|max_length[100]'],
+            'email'         => ['rules' => 'required|max_length[30]|valid_email|is_unique[users.email]'],
+            'password'      => ['rules' => 'required|min_length[4]|max_length[30]'],
             'confirmpassword'  => ['rules' => 'matches[password]'],
+            'errors'=> [
+                'matches' => 'Password tidak sesuai dengan Konfirmasi Password',
+                'is_unique' => 'Email Sudah digunakan Sebelumnya',
+                'min_length' => '{field} Minimal 4 Karakter',
+                'max_length' => '{field} Maksimal 20 Karakter',
+            ],
         ];
 
         if($this->validate($rules)){

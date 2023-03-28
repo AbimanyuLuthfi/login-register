@@ -98,4 +98,4 @@
                 </main>
 
 
-<?= $this->endSecti
+<?= $this->endSection(); ?>
