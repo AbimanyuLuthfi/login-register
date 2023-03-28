@@ -32,15 +32,25 @@ class AuthController extends BaseController
         $password = $this->request->getVar('password');
         
         $rules = [
-            'email'         => ['rules' => 'required|max_length[30]|valid_email|is_unique[users.email]'],
-            'password'      => ['rules' => 'required|min_length[4]|max_length[30]'],
-            'confirmpassword'  => ['rules' => 'matches[password]'],
-            'errors'=> [
-                'matches' => 'Password tidak sesuai dengan Konfirmasi Password',
-                'is_unique' => 'Email Sudah digunakan Sebelumnya',
-                'min_length' => '{field} Minimal 4 Karakter',
-                'max_length' => '{field} Maksimal 20 Karakter',
-            ],
+            'email'         => ['rules' => 'required|max_length[50]|valid_email|is_unique[users.email]',
+                                'errors'=> [
+                                    'required' => '{field} tidak boleh kosong!!!',                
+                                    'is_unique' => 'Email Sudah digunakan Sebelumnya!',
+                                    'max_length' => '{field} Maximal 50 Karakter!',
+                                    ],
+                                ],
+            'password'      => ['rules' => 'required|min_length[4]|max_length[20]',
+                                'errors'=> [
+                                    'required' => '{field} tidak boleh kosong!!!',
+                                    'min_length' => '{field} Minimal 4 Karakter',
+                                    'max_length' => '{field} Maksimal 20 Karakter',
+                                    ],
+                                ],
+            'confirmpassword'  => ['rules' => 'matches[password]',
+                                    'errors'=> [
+                                    'matches' => 'Password tidak sesuai dengan Konfirmasi Password',
+                                    ],
+                                ],  
         ];
 
         if($this->validate($rules)){
@@ -54,6 +64,7 @@ class AuthController extends BaseController
             $authModel->save($data);
             return redirect()->to('/dashboard');
         } else {
+            session()->setFlashdata('error', $this->validator->listerrors());
             return redirect()->to('/auth/register/index');
         }
     }
