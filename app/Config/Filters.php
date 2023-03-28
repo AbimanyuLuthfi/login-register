@@ -22,7 +22,7 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'AdminFilter'   => \App\Filters\AdminFilter::class,
-        'MemberFilter'   => \App\Filters\AdminFilter::class,
+        'MemberFilter'   => \App\Filters\MemberFilter::class,
     ];
 
     /**

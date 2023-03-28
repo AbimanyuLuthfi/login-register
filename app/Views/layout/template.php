@@ -14,13 +14,13 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Welcome</a>
+            <a class="navbar-brand ps-3" href="index.html">Testing Homepage</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto me-0 me-md-3 me-lg-4">
-                <a class="btn btn-danger" href="/auth/logout/process">Logout</a>
+                <a class="btn btn-primary" href="/auth/login/index">Login</a>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -34,41 +34,10 @@
         </nav>
         <div id="layoutSidenav">
         <div id="layoutSidenav_content">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/dashboard">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Management
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/dashboard">All Mentors</a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        Login - Register
-                    </div>
-                </nav>
-            </div>
+            <?= $this->include('layout/navbar'); ?>
+            <!-- Render halaman/Section content -->
             
-            <?php if (session()->get('isLoggedIn') == true): ?>
-                <?php if ($_SESSION['role'] == 'admin'): ?>
-                    <?= $this->include('admin/dashboard/index'); ?>
-                <?php elseif ($_SESSION['role'] == 'member'): ?>
-                    <?= $this->include('member'); ?>
-                <?php endif; ?>
-            <?php endif; ?>
+            
 
             <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

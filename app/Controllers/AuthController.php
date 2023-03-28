@@ -7,14 +7,29 @@ use App\Models\AuthModel;
 
 class AuthController extends BaseController
 {
-
+    // GET : homepage/index
+    // Function Read Index
+    public function homepage_index(){
+        $data = [
+            'title' => 'Homepage'
+        ];
+        return view('homepage', $data);
+    }
 
     // POST : /
     public function dashboard_index()
     {
         $session = session();
         echo "Hello : ".$session->get('email');
-        return view('dashboard');
+
+        $authModel = new AuthModel();
+        $getItems = $authModel->getAllItem();
+
+        $data =[
+            'title' => 'dashboard',
+            'array_items' => $getItems,
+        ];
+        return view('dashboard', $data);
     }
     // POST : auth/login/index
     public function login_index()
@@ -28,6 +43,10 @@ class AuthController extends BaseController
         return view('register');
     }
 
+    /*
+     * POST : auth/register/process
+     * Function Process Register
+     */
     public function auth_account_create()
     {
         $email = $this->request->getVar('email');
@@ -71,7 +90,10 @@ class AuthController extends BaseController
         }
     }
 
-
+    /*
+     * POST : auth/login/process
+     * Function Login Process
+     */
     public function validation_account() {
         $session = session();   
         $authModel = new AuthModel();
@@ -93,7 +115,7 @@ class AuthController extends BaseController
                     'isLoggedIn' => TRUE
                 ];
                 $session->set($ses_data);
-                return redirect()->to('/dashboard');
+                return redirect()->to('/dashboard')->with('success', 'Berhasil Login');
             } else {
                 $session->setFlashdata('msg', 'Password is incorrect.');
                 return redirect()->to('/auth/login/index')->with('msg', 'Password Anda Salah');
@@ -108,6 +130,10 @@ class AuthController extends BaseController
     }
     }
 
+    /*
+     * GET : auth/logout/process
+     * Function Logout Process
+     */
     public function logout(){
         $this->session->destroy();
         return redirect()->to('/auth/login/index');

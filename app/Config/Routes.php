@@ -29,10 +29,11 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'AuthController::login_index');
+$routes->get('/', 'AuthController::homepage_index');
 $routes->get('/dashboard', 'AuthController::dashboard_index');
+$routes->get('/homepage/index', 'AuthController::homepage_index');
 
-$routes->group('auth', function($routes){
+$routes->group('auth', static function($routes){
     $routes->get('login/index', 'AuthController::login_index'); // login Page
     $routes->get('register/index', 'AuthController::register_index'); // Register Page
     $routes->post('register/process', 'AuthController::auth_account_create'); // Register Process
@@ -40,14 +41,14 @@ $routes->group('auth', function($routes){
     $routes->get('logout/process', 'AuthController::logout'); // logout Process
 });
 
-$routes->group('admin',['filter' => 'AdminFilter'], function($routes){
+$routes->group('admin',['filter' => 'AdminFilter'], static function($routes){
     $routes->get('login/index', 'Admin\AdminController::login_index'); // login Page
     $routes->get('(:any)/delete', 'Admin\AdminController::admin_account_delete/$1'); // Delete Accounts
     $routes->get('update/post/(:any)', 'Admin\AdminController::admin_account_index/$1'); // Update Mentors Information View Page
     $routes->post('(:any)/update/post', 'Admin\AdminController::admin_account_index_update/$1'); // Update Mentors Information
 });
 
-$routes->group('member', ['filter' => 'AdminFilter'], function($routes){
+$routes->group('member', ['filter' => 'MemberFilter'], static function($routes){
     $routes->get('dashboard', 'AuthController::dashboard_index');
 });
 

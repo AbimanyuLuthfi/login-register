@@ -47,10 +47,10 @@ class MemberFilter implements FilterInterface
         // if(session()->get('role') == "member"){
         //     return view('/test');
         // }
-        if (session()->get('is_active') == "active"){
-            return view('/test');
-        } else {
-            session()->setFlashdata('pesan', 'Akun Anda Belum Aktif');
+            if(session()->get('role') == "member"){
+                return redirect()->to('/member/dashboard');
+            }
+        else {
             return redirect()->to('auth/login/index');
         }
     }

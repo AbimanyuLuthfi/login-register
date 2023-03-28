@@ -1,7 +1,6 @@
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">Admin Dashboard</h1>
-        <h3>Hallo <?= session('email'); ?></h3>
         <br>
         <div class="row">
             <div class="col-xl-3 col-md-6">
@@ -46,7 +45,7 @@
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 All Mentors Information
-                <!-- <a type="button" href="/admin/add/mentors" class="btn btn-info">Add</a> -->
+                <a type="button" href="/admin/add/mentors" class="btn btn-info">Add</a>
             </div>
             <div class="card-body">
                 <table id="datatablesSimple">
