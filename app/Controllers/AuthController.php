@@ -7,6 +7,8 @@ use App\Models\AuthModel;
 
 class AuthController extends BaseController
 {
+
+
     // POST : /
     public function dashboard_index()
     {
@@ -62,7 +64,7 @@ class AuthController extends BaseController
                 'password' => password_hash($password, PASSWORD_BCRYPT)
             ];
             $authModel->save($data);
-            return redirect()->to('/dashboard');
+            return redirect()->to('/auth/login/index');
         } else {
             session()->setFlashdata('error', $this->validator->listerrors());
             return redirect()->to('/auth/register/index');
@@ -79,6 +81,7 @@ class AuthController extends BaseController
         $auth = $authModel->where('email', $email)->first();
 
        if(!empty($auth)){
+        if($auth['is_active'] == "active"){
             $pass = $auth['password'];
             $authenticatePassword = password_verify($password, $pass);
             if($authenticatePassword == true){
@@ -95,7 +98,14 @@ class AuthController extends BaseController
                 $session->setFlashdata('msg', 'Password is incorrect.');
                 return redirect()->to('/auth/login/index')->with('msg', 'Password Anda Salah');
             }
-       }
+        } else {
+            $session->setFlashdata('msg', 'Email Anda Belum Aktif');
+            return redirect()->to('/auth/login/index')->with('msg', 'Email Anda Belum Aktif');
+        }
+       } else {
+        $session->setFlashdata('msg', 'Akun Tidak Ditemukan');
+        return redirect()->to('/auth/login/index')->with('msg', 'Akun Tidak Ditemukan');
+    }
     }
 
     public function logout(){
