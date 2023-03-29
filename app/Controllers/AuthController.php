@@ -6,9 +6,11 @@ use App\Controllers\BaseController;
 use App\Models\AuthModel;
 
 class AuthController extends BaseController
-{
-    // GET : homepage/index
-    // Function Read Index
+{ 
+    /*
+     * GET : homepage/index
+     * Function Read Index
+     */
     public function homepage_index(){
         $data = [
             'title' => 'Homepage'
@@ -16,7 +18,11 @@ class AuthController extends BaseController
         return view('homepage', $data);
     }
 
-    // POST : /
+    /*
+     * GET : member/dashboard
+     * GET : /dashboard
+     * Function Read For Login Process
+     */
     public function dashboard_index()
     {
         $session = session();
@@ -31,7 +37,11 @@ class AuthController extends BaseController
         ];
         return view('dashboard', $data);
     }
-    // POST : auth/login/index
+
+    /*
+     * POST : auth/login/index
+     * Function Read For Login Page
+     */
     public function login_index()
     {
         return view('login');
