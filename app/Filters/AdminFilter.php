@@ -48,13 +48,13 @@ class AdminFilter implements FilterInterface
         //     session()->setFlashdata('pesan', 'Akun Anda Belum Aktif');
         //     return redirect()->to('auth/login/index');
         // }
-        if (session()->get('is_active') == "active"){
+        // if (session()->get('is_active') == "active"){}
             if(session()->get('role') == "admin"){
                 return view('/admin/dashboard/index');
             }
-        } else {
-            session()->setFlashdata('pesan', 'Akun Anda Belum Aktif');
-            return redirect()->to('auth/login/index');
+         else {
+            session()->setFlashdata('pesan', 'Anda Bukan Admin');
+            return redirect()->back();
         }
     }
 }

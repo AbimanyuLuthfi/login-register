@@ -118,7 +118,7 @@ class AuthController extends BaseController
                 return redirect()->to('/dashboard')->with('success', 'Berhasil Login');
             } else {
                 $session->setFlashdata('msg', 'Password is incorrect.');
-                return redirect()->to('/auth/login/index')->with('msg', 'Password Anda Salah');
+                return redirect()->to('/auth/login/index')->withInput()->with('msg', 'Password Anda Salah');
             }
         } else {
             $session->setFlashdata('msg', 'Email Anda Belum Aktif');
