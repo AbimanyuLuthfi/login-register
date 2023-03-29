@@ -22,7 +22,7 @@ class AdminController extends BaseController
             'array_items' => $getItems,
         ];
 
-        return view('/admin/dashboard/index', $data);
+        return view('/admin/dashboard/admin-page', $data);
     }
 
     public function admin_account_index($accounts_id)
